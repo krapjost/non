@@ -8,13 +8,10 @@ class CalenderPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final size = MediaQuery.of(context).size;
-
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.black,
           toolbarHeight: 0,
           bottom: const TabBar(tabs: [
             Tab(
@@ -28,7 +25,6 @@ class CalenderPage extends HookConsumerWidget {
             ),
           ]),
         ),
-        backgroundColor: Colors.black87,
         body: const TabBarView(
           children: [
             Text("Week"),

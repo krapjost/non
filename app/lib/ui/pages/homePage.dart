@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gaji/provider/color.dart';
 import 'package:gaji/ui/pages/historyPage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -7,13 +8,14 @@ import 'package:gaji/ui/pages/todoPage.dart';
 import 'package:gaji/ui/pages/calenderPage.dart';
 import 'package:gaji/provider/state.dart';
 
-class HomePage extends HookConsumerWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final int page = ref.watch(pageProvider.state).state;
-    final bool _isVisible = !ref.watch(isOnInputProvider.state).state;
+    final bool hasFocus = ref.watch(focustStateControllerProvider.state).state;
+    final Color bnw = ref.watch(bnwColorProvider.state).state;
 
     final pages = [
       const TodoPage(),
@@ -22,16 +24,14 @@ class HomePage extends HookConsumerWidget {
     ];
 
     return Scaffold(
-      backgroundColor: Colors.black,
       bottomNavigationBar: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
-        height: _isVisible ? 55 : 0,
-        child: _isVisible
-            ? BottomNavigationBar(
+        height: hasFocus ? 0 : 55,
+        child: hasFocus
+            ? SizedBox(width: MediaQuery.of(context).size.width)
+            : BottomNavigationBar(
+                selectedItemColor: bnw,
                 currentIndex: page,
-                backgroundColor: Colors.transparent,
-                selectedItemColor: Colors.white,
-                unselectedItemColor: Colors.brown,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 onTap: (index) {
@@ -51,8 +51,7 @@ class HomePage extends HookConsumerWidget {
                       label: "history",
                       icon: Icon(LineIcons.history)),
                 ],
-              )
-            : SizedBox(width: MediaQuery.of(context).size.width),
+              ),
       ),
       body: pages[page],
     );

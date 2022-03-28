@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:gaji/constants/theme/colorSchemes.dart';
 import 'package:gaji/db/local.dart';
 import 'package:gaji/models/todo.dart';
+import 'package:gaji/provider/theme.dart';
 /* import 'package:home_widget/home_widget.dart'; */
 /* import 'package:firebase_core/firebase_core.dart'; */
 import 'package:hive_flutter/adapters.dart';
@@ -21,17 +23,16 @@ import 'package:gaji/ui/router.dart';
 /*   } */
 /* } */
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final router = AppRouter().router;
+    final mode = ref.watch(themeController).theme;
 
     return MaterialApp.router(
-      theme: ThemeData(
-        primarySwatch: Colors.brown,
-      ),
+      theme: ThemeData.from(colorScheme: mode == "dark" ? darkMode : lightMode),
       routerDelegate: router.routerDelegate,
       routeInformationParser: router.routeInformationParser,
     );
@@ -45,6 +46,7 @@ Future<void> main() async {
 
   final _hiveDB = HiveDB();
   await _hiveDB.initTodoBox();
+  await _hiveDB.initThemeBox();
 
   /* HomeWidget.registerBackgroundCallback(backgroundCallback); */
   /* await Firebase.initializeApp(); */

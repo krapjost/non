@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gaji/controllers/todo.dart';
 import 'package:gaji/models/todo.dart';
+import 'package:gaji/provider/color.dart';
+import 'package:gaji/provider/state.dart';
 import 'package:gaji/provider/todo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,7 +20,6 @@ class Toolbar extends ConsumerWidget {
         .length;
 
     return Material(
-      color: Colors.black,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -27,7 +29,7 @@ class Toolbar extends ConsumerWidget {
               child: Text(
                 ' $todoLen left',
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(color: Colors.brown.shade300, fontSize: 16),
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           ),
@@ -37,14 +39,12 @@ class Toolbar extends ConsumerWidget {
   }
 }
 
-class TodoItem extends HookConsumerWidget {
+class TodoItem extends StatelessWidget {
   const TodoItem({Key? key, required this.todo}) : super(key: key);
   final Todo todo;
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Material(
-      color: Colors.black,
-      shadowColor: Colors.brown,
       elevation: 2,
       child: ListTile(
         onTap: () {
@@ -52,7 +52,6 @@ class TodoItem extends HookConsumerWidget {
         },
         title: Text(
           todo.description,
-          style: const TextStyle(color: Colors.white),
         ),
       ),
     );
@@ -71,6 +70,7 @@ class TodoListWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     final TodoController todoController = ref.watch(todoControllerProvider);
+    final Color bnw = ref.watch(bnwColorProvider.state).state;
     final List<Todo> todos = todoController.all;
 
     final List<Widget> todoItems = todos
@@ -99,13 +99,13 @@ class TodoListWidget extends HookConsumerWidget {
                 }
               } else {
                 if (direction == DismissDirection.startToEnd) {
-                  ref.read(todoControllerProvider.notifier).delete(todo.id);
+                  todoController.delete(todo.id);
                 } else {
-                  ref.read(todoControllerProvider.notifier).update(
-                        id: todo.id,
-                        description: todo.description,
-                        date: todo.date.subtract(const Duration(days: 1)),
-                      );
+                  todoController.update(
+                    id: todo.id,
+                    description: todo.description,
+                    date: todo.date.subtract(const Duration(days: 1)),
+                  );
                 }
               }
             },
@@ -121,21 +121,16 @@ class TodoListWidget extends HookConsumerWidget {
         children: [
           Toolbar(isTodayWidget: isTodayWidget),
           if (todos.isNotEmpty)
-            const Divider(
+            Divider(
               height: 1,
-              color: Colors.white54,
+              color: bnw.withOpacity(0.5),
             ),
           Container(
-            constraints: BoxConstraints(maxHeight: size.height * 0.4),
-            child: ScrollConfiguration(
-              behavior: const ScrollBehavior(),
-              child: GlowingOverscrollIndicator(
-                color: Colors.brown.shade500,
-                axisDirection: AxisDirection.down,
-                child: SingleChildScrollView(
-                  child: Column(children: todoItems),
-                ),
-              ),
+            constraints: BoxConstraints(maxHeight: size.height / 2),
+            child: SingleChildScrollView(
+              child: Column(children: [
+                ...todoItems,
+              ]),
             ),
           ),
         ],
