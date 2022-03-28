@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:gaji/provider/provider.dart';
+import 'package:gaji/controllers/todo.dart';
+import 'package:gaji/models/todo.dart';
+import 'package:gaji/provider/todo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class Toolbar extends HookConsumerWidget {
-  const Toolbar({
-    Key? key,
-  }) : super(key: key);
+class Toolbar extends ConsumerWidget {
+  const Toolbar({Key? key, required this.isTodayWidget}) : super(key: key);
+  final bool isTodayWidget;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final int todoLen = ref
+        .watch(todoControllerProvider)
+        .getUncompletedForDate(isTodayWidget)
+        .length;
+
     return Material(
       color: Colors.black,
       child: Row(
@@ -19,7 +25,7 @@ class Toolbar extends HookConsumerWidget {
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Text(
-                ' ${ref.watch(uncompletedTodosCount).toString()} left',
+                ' $todoLen left',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(color: Colors.brown.shade300, fontSize: 16),
               ),
@@ -32,10 +38,10 @@ class Toolbar extends HookConsumerWidget {
 }
 
 class TodoItem extends HookConsumerWidget {
-  const TodoItem({Key? key}) : super(key: key);
+  const TodoItem({Key? key, required this.todo}) : super(key: key);
+  final Todo todo;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todo = ref.watch(currentTodo);
     return Material(
       color: Colors.black,
       shadowColor: Colors.brown,
@@ -58,20 +64,21 @@ class TodoListWidget extends HookConsumerWidget {
     Key? key,
     required this.isTodayWidget,
   }) : super(key: key);
+
   final bool isTodayWidget;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
-    final todos = ref.watch(filteredTodos);
+    final TodoController todoController = ref.watch(todoControllerProvider);
+    final List<Todo> todos = todoController.all;
 
-    final List<Widget> todoItems = ref
-        .watch(todoListProvider)
+    final List<Widget> todoItems = todos
         .where((todo) {
-          final doDate = DateTime.parse(todo.date).day;
           final bool isTodayTodo = isTodayWidget
-              ? doDate == DateTime.now().day
-              : doDate == DateTime.now().add(const Duration(days: 1)).day;
+              ? todo.date.day == DateTime.now().day
+              : todo.date.day ==
+                  DateTime.now().add(const Duration(days: 1)).day;
 
           return !todo.completed && isTodayTodo;
         })
@@ -82,36 +89,27 @@ class TodoListWidget extends HookConsumerWidget {
             onDismissed: (direction) {
               if (isTodayWidget) {
                 if (direction == DismissDirection.startToEnd) {
-                  ref.read(todoListProvider.notifier).edit(
-                        id: todo.id,
-                        description: todo.description,
-                        date: DateTime.parse(todo.date)
-                            .add(const Duration(days: 1))
-                            .toString(),
-                      );
+                  todoController.update(
+                    id: todo.id,
+                    description: todo.description,
+                    date: todo.date.add(const Duration(days: 1)),
+                  );
                 } else {
-                  ref.read(todoListProvider.notifier).remove(todo);
+                  todoController.delete(todo.id);
                 }
               } else {
                 if (direction == DismissDirection.startToEnd) {
-                  ref.read(todoListProvider.notifier).remove(todo);
+                  ref.read(todoControllerProvider.notifier).delete(todo.id);
                 } else {
-                  ref.read(todoListProvider.notifier).edit(
+                  ref.read(todoControllerProvider.notifier).update(
                         id: todo.id,
                         description: todo.description,
-                        date: DateTime.parse(todo.date)
-                            .subtract(const Duration(days: 1))
-                            .toString(),
+                        date: todo.date.subtract(const Duration(days: 1)),
                       );
                 }
               }
             },
-            child: ProviderScope(
-              overrides: [
-                currentTodo.overrideWithValue(todo),
-              ],
-              child: const TodoItem(),
-            ),
+            child: TodoItem(todo: todo),
           ),
         )
         .toList();
@@ -121,7 +119,7 @@ class TodoListWidget extends HookConsumerWidget {
       width: size.width,
       child: Column(
         children: [
-          const Toolbar(),
+          Toolbar(isTodayWidget: isTodayWidget),
           if (todos.isNotEmpty)
             const Divider(
               height: 1,

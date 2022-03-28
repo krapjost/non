@@ -5,7 +5,7 @@ import 'package:line_icons/line_icons.dart';
 
 import 'package:gaji/ui/pages/todoPage.dart';
 import 'package:gaji/ui/pages/calenderPage.dart';
-import 'package:gaji/provider/provider.dart';
+import 'package:gaji/provider/state.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({Key? key}) : super(key: key);

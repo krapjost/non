@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaji/constant/theme/styles.dart';
-import 'package:gaji/provider/provider.dart';
+import 'package:gaji/constants/theme/styles.dart';
+import 'package:gaji/provider/todo.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
@@ -18,7 +18,8 @@ class TimerPage extends HookConsumerWidget {
     final Size size = MediaQuery.of(context).size;
 
     final todo = ref
-        .watch(todoListProvider)
+        .watch(todoControllerProvider)
+        .all
         .where((todo) => todoId == todo.id)
         .toList()[0];
 
@@ -89,7 +90,7 @@ class TimerPage extends HookConsumerWidget {
                   OutlinedButton(
                     style: outlinedButtonStyle,
                     onPressed: () {
-                      ref.read(todoListProvider.notifier).toggle(todo.id);
+                      ref.watch(todoControllerProvider).toggle(todo.id);
                       context.go('/');
                       controller.stop();
                     },

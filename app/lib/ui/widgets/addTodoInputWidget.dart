@@ -1,9 +1,13 @@
 import 'package:flutter/foundation.dart';
+import 'package:gaji/controllers/todo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:gaji/provider/provider.dart';
+import 'package:gaji/provider/state.dart';
+import 'package:gaji/provider/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+
+final addTodoKey = UniqueKey();
 
 class AddTodoInput extends HookConsumerWidget {
   const AddTodoInput({Key? key, required this.isOnEditing}) : super(key: key);
@@ -19,6 +23,7 @@ class AddTodoInput extends HookConsumerWidget {
 
     final TextEditingController addTodoTextEditingController =
         useTextEditingController();
+    final TodoController todoController = ref.watch(todoControllerProvider);
     final FocusNode addTodoFocus = useFocusNode();
 
     void setFocusState() {
@@ -51,17 +56,13 @@ class AddTodoInput extends HookConsumerWidget {
     addTodoItem() {
       final bool isToday =
           ref.watch(todayOrTomorrowSelectProvider.notifier).state[0];
-      final String date = isToday
-          ? DateTime.now().toString()
-          : DateTime.now().add(const Duration(days: 1)).toString();
 
       isOnEditing.value // when input mode
           ? () {
               addTodoTextEditingController.value.text.trim().isEmpty
                   ? null
-                  : ref
-                      .read(todoListProvider.notifier)
-                      .add(addTodoTextEditingController.value.text, date);
+                  : todoController.put(
+                      addTodoTextEditingController.value.text, isToday);
               FocusManager.instance.primaryFocus?.unfocus();
               addTodoTextEditingController.clear();
               isOnEditing.value = false;

@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaji/provider/provider.dart';
+import 'package:gaji/provider/todo.dart';
 
 class HistoryPage extends HookConsumerWidget {
   const HistoryPage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     List<Widget> completedList = ref
-        .watch(todoListProvider)
+        .watch(todoControllerProvider)
+        .all
         .where((todo) => todo.completed)
         .map(
           (todo) => Container(
