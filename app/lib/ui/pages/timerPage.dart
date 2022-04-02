@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gaji/controllers/todo.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:ui' as ui;
@@ -16,6 +17,7 @@ class TimerPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     final ColorScheme themeColors = Theme.of(context).colorScheme;
+    final t = Translations.of(context);
 
     final todo = ref
         .watch(todoControllerProvider)
@@ -37,12 +39,12 @@ class TimerPage extends HookConsumerWidget {
     void toggleAnimation(AnimationController controller) {
       if (controller.isAnimating) {
         controller.stop();
-        buttonText.value = "Start";
+        buttonText.value = t.reportIssue;
         controller.removeListener(setTime);
       } else {
         controller.addListener(setTime);
         controller.repeat();
-        buttonText.value = "Pause";
+        buttonText.value = t.pause;
       }
     }
 
@@ -93,7 +95,7 @@ class TimerPage extends HookConsumerWidget {
                       controller.stop();
                     },
                     child: Text(
-                      "Done",
+                      t.done,
                       style: TextStyle(
                           fontSize: 18,
                           color: themeColors.onPrimary.withOpacity(0.5)),

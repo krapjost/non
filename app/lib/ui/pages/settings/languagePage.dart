@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:gaji/controllers/language.dart' as l;
+import 'package:gaji/controllers/locale.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-final List<String> languages = [
-  "korean",
-  "chinese",
-  "english",
-  "russian",
-  "japanese",
-  "spanish",
-  "french",
-  "dutch"
+final List<String> locales = [
+  "ko",
+  "en",
+  "es",
 ];
 
 class LanguagePage extends ConsumerWidget {
@@ -18,14 +14,12 @@ class LanguagePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    saveLanguage(String lang) {
-      ref.watch(l.languageController.notifier).save(lang);
-    }
+    final t = Translations.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text("Languages")),
+      appBar: AppBar(title: Text(t.language)),
       body: ListView.builder(
-        itemCount: languages.length,
+        itemCount: locales.length,
         itemBuilder: (BuildContext context, int index) {
           return Column(
             children: [
@@ -33,9 +27,9 @@ class LanguagePage extends ConsumerWidget {
                 width: double.infinity,
                 child: TextButton(
                     onPressed: () {
-                      saveLanguage(languages[index]);
+                      ref.read(localeController.notifier).save(locales[index]);
                     },
-                    child: Text(languages[index])),
+                    child: Text(locales[index])),
               ),
               const Divider(),
             ],

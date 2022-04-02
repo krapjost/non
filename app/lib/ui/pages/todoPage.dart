@@ -1,4 +1,4 @@
-import 'package:gaji/controllers/language.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
@@ -6,17 +6,15 @@ import 'package:gaji/ui/pages/todo/todoTab.dart';
 import 'package:intl/intl.dart';
 import 'package:gaji/ui/widgets/addTodoInputWidget.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TodoPage extends ConsumerWidget {
   const TodoPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final today = DateFormat('EEEE d').format(DateTime.now());
-    final Map<String, dynamic> lang =
-        ref.watch(languageDataProvider.state).state;
-    print(lang);
+    final t = Translations.of(context);
+    final today = DateFormat('EEEE d', LocaleSettings.currentLocale.languageTag)
+        .format(DateTime.now());
 
     return DefaultTabController(
       length: 2,
@@ -29,10 +27,10 @@ class TodoPage extends ConsumerWidget {
                 },
                 icon: const Icon(LineIcons.cog))
           ],
-          title: Text(lang['todo']['title']),
+          title: Text(today),
           bottom: TabBar(tabs: [
-            Tab(text: AppLocalizations.of(context)!.today),
-            Tab(text: "Tomorrow"),
+            Tab(text: t.today),
+            Tab(text: t.tomorrow),
           ]),
         ),
         body: const TabBarView(

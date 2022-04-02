@@ -1,3 +1,4 @@
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
 
@@ -8,20 +9,22 @@ class CalenderPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final t = Translations.of(context);
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: 0,
-          bottom: const TabBar(tabs: [
+          bottom: TabBar(tabs: [
             Tab(
-              text: "Week",
+              text: t.week,
             ),
             Tab(
-              text: "Month",
+              text: t.month,
             ),
             Tab(
-              text: "Year",
+              text: t.year,
             ),
           ]),
         ),

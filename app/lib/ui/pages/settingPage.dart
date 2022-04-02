@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
@@ -9,23 +10,24 @@ class SettingPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ColorScheme colors = Theme.of(context).colorScheme;
+    final t = Translations.of(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Settings"),
+        title: Text(t.settings),
       ),
       body: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.all(13),
             child: Text(
-              "Settings",
+              t.settings,
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           const Divider(),
           TextButton.icon(
-            label: const Text("Theme"),
+            label: Text(t.theme),
             onPressed: () {
               context.push('/theme');
             },
@@ -33,7 +35,7 @@ class SettingPage extends ConsumerWidget {
           ),
           const Divider(),
           TextButton.icon(
-            label: const Text("Language"),
+            label: Text(t.language),
             onPressed: () {
               context.push('/language');
             },
@@ -43,24 +45,24 @@ class SettingPage extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.all(13),
             child: Text(
-              "About",
+              t.about,
               style: Theme.of(context).textTheme.subtitle1,
             ),
           ),
           TextButton.icon(
-            label: const Text("Rate Us"),
+            label: Text(t.rateUs),
             onPressed: () {},
             icon: const Icon(LineIcons.heart),
           ),
           const Divider(),
           TextButton.icon(
-            label: const Text("Report Issue"),
+            label: Text(t.reportIssue),
             onPressed: () {},
             icon: const Icon(LineIcons.bug),
           ),
           const Divider(),
           TextButton.icon(
-            label: const Text("Privacy Policy"),
+            label: Text(t.privacyPolicy),
             onPressed: () {},
             icon: const Icon(LineIcons.lock),
           ),

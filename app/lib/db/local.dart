@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:gaji/models/todo.dart';
 import 'package:uuid/uuid.dart';
@@ -51,6 +52,8 @@ class HiveDB {
   // ThemeDB
   late final Box<String> themeBox;
   String get savedTheme => themeBox.values.first;
+
+  Future<void> saveTheme(String mode) async => await themeBox.put(0, mode);
   Future<void> initThemeBox() async {
     await Hive.openBox<String>('theme').then((value) => themeBox = value);
     if (themeBox.values.isEmpty) {
@@ -58,18 +61,20 @@ class HiveDB {
     }
   }
 
-  Future<void> saveTheme(String mode) async => await themeBox.put(0, mode);
+  // localeDB
+  late final Box<String> localeBox;
+  String get savedLocale => localeBox.values.first;
 
-  // LanguageDB
-  late final Box<String> languageBox;
-  String get savedLanguage => languageBox.values.first;
-  Future<void> initLanguageBox() async {
-    await Hive.openBox<String>('language').then((value) => languageBox = value);
-    if (languageBox.values.isEmpty) {
-      languageBox.add("english");
-    }
+  Future<void> saveLocale(String locale) async {
+    await localeBox.put(0, locale);
+    LocaleSettings.setLocaleRaw(locale);
   }
 
-  Future<void> saveLanguage(String mode) async =>
-      await languageBox.put(0, mode);
+  Future<void> initLocaleBox() async {
+    await Hive.openBox<String>('locale').then((value) => localeBox = value);
+    if (localeBox.values.isEmpty) {
+      AppLocale deviceLocale = LocaleSettings.useDeviceLocale();
+      localeBox.add(deviceLocale.languageTag);
+    }
+  }
 }

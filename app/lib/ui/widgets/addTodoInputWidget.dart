@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -25,6 +26,7 @@ class AddTodoInput extends HookConsumerWidget {
         useTextEditingController();
     final TodoController todoController = ref.watch(todoControllerProvider);
     final FocusNode addTodoFocus = useFocusNode();
+    final t = Translations.of(context);
 
     void setFocusState() {
       focusStateController.state = addTodoFocus.hasFocus;
@@ -90,18 +92,14 @@ class AddTodoInput extends HookConsumerWidget {
                   child: Row(
                     children: [
                       ToggleButtons(
-                          children: const [
+                          children: [
                             Padding(
                               padding: EdgeInsets.only(left: 13.0, right: 8.0),
-                              child: Text(
-                                "Today",
-                              ),
+                              child: Text(t.today),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 8.0, right: 13.0),
-                              child: Text(
-                                "Tomorrow",
-                              ),
+                              child: Text(t.tomorrow),
                             ),
                           ],
                           onPressed: (index) {

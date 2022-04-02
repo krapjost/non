@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gaji/controllers/theme.dart';
+import 'package:gaji/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
@@ -14,6 +15,7 @@ class ThemePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ValueNotifier<int> currentIndex = useState(0);
     final Size size = MediaQuery.of(context).size;
+    final t = Translations.of(context);
 
     void saveTheme(String theme) {
       ref.watch(themeController.notifier).save(theme);
@@ -22,7 +24,7 @@ class ThemePage extends HookConsumerWidget {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        title: const Text("Theme"),
+        title: Text(t.theme),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
