@@ -1,11 +1,12 @@
-import 'package:gaji/provider/theme.dart';
+import 'package:gaji/controllers/language.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:gaji/ui/pages/tabs/todayTodo.dart';
-import 'package:gaji/ui/pages/tabs/tomorrowTodo.dart';
+import 'package:gaji/ui/pages/todo/todoTab.dart';
 import 'package:intl/intl.dart';
 import 'package:gaji/ui/widgets/addTodoInputWidget.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TodoPage extends ConsumerWidget {
   const TodoPage({Key? key}) : super(key: key);
@@ -13,13 +14,9 @@ class TodoPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final today = DateFormat('EEEE d').format(DateTime.now());
-
-    String mode = ref.watch(themeController).theme;
-
-    void toggleTheme() {
-      bool isDark = mode == "light" ? true : false;
-      ref.watch(themeController.notifier).toggle(isDark);
-    }
+    final Map<String, dynamic> lang =
+        ref.watch(languageDataProvider.state).state;
+    print(lang);
 
     return DefaultTabController(
       length: 2,
@@ -27,19 +24,21 @@ class TodoPage extends ConsumerWidget {
         appBar: AppBar(
           actions: [
             IconButton(
-                onPressed: toggleTheme,
-                icon: Icon(mode == "light" ? LineIcons.sun : LineIcons.moon))
+                onPressed: () {
+                  context.push('/setting');
+                },
+                icon: const Icon(LineIcons.cog))
           ],
-          title: Text(today),
-          bottom: const TabBar(tabs: [
-            Tab(text: "Today"),
+          title: Text(lang['todo']['title']),
+          bottom: TabBar(tabs: [
+            Tab(text: AppLocalizations.of(context)!.today),
             Tab(text: "Tomorrow"),
           ]),
         ),
         body: const TabBarView(
           children: [
-            TodayTodo(),
-            TomorrowTodo(),
+            TodoTab(todoFor: "today"),
+            TodoTab(todoFor: "tomorrow"),
           ],
         ),
         floatingActionButton: const AddTodoInput(),

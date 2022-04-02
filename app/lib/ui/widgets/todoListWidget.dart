@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gaji/controllers/todo.dart';
-import 'package:gaji/models/todo.dart';
-import 'package:gaji/provider/color.dart';
-import 'package:gaji/provider/state.dart';
-import 'package:gaji/provider/todo.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:gaji/controllers/todo.dart';
+import 'package:gaji/models/todo.dart';
 
 class Toolbar extends ConsumerWidget {
   const Toolbar({Key? key, required this.isTodayWidget}) : super(key: key);
@@ -70,7 +67,7 @@ class TodoListWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     final TodoController todoController = ref.watch(todoControllerProvider);
-    final Color bnw = ref.watch(bnwColorProvider.state).state;
+    final ColorScheme themeColors = Theme.of(context).colorScheme;
     final List<Todo> todos = todoController.all;
 
     final List<Widget> todoItems = todos
@@ -123,7 +120,7 @@ class TodoListWidget extends HookConsumerWidget {
           if (todos.isNotEmpty)
             Divider(
               height: 1,
-              color: bnw.withOpacity(0.5),
+              color: themeColors.onPrimary.withOpacity(0.5),
             ),
           Container(
             constraints: BoxConstraints(maxHeight: size.height / 2),

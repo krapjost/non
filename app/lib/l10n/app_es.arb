@@ -1,0 +1,16 @@
+{
+    "today" : "Hoy dia",
+    "tomorrow" : "Mañana",
+    "theme" : "Tema",
+    "language" : "Idioma",
+    "rateUs" : "Nos califica",
+    "done" : "Hecho",
+    "pause" : "Pausa",
+    "week" : "Semana",
+    "month" : "Mes",
+    "year" : "Año",
+    "about" : "Sobre",
+    "settings" : "Ajustes",
+    "reportIssue" : "Informar problema",
+    "privacyPolicy" : "Política de privacidad"
+}

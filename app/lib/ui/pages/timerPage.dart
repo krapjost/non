@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gaji/provider/color.dart';
+import 'package:gaji/controllers/todo.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaji/provider/todo.dart';
 import 'package:go_router/go_router.dart';
 import 'dart:ui' as ui;
 import 'dart:math' as math;
@@ -16,8 +15,7 @@ class TimerPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
-    final Color bnw = ref.watch(bnwColorProvider.state).state;
-    final Color brown = ref.watch(brownPrimaryColorProvider.state).state;
+    final ColorScheme themeColors = Theme.of(context).colorScheme;
 
     final todo = ref
         .watch(todoControllerProvider)
@@ -69,8 +67,8 @@ class TimerPage extends HookConsumerWidget {
               child: CustomPaint(
                   painter: TimerPainter(
                 animation: controller,
-                backgroundColor: bnw.withOpacity(0.1),
-                color: brown.withOpacity(0.7),
+                backgroundColor: themeColors.onPrimary.withOpacity(0.1),
+                color: themeColors.secondary.withOpacity(0.7),
               )),
             ),
             Positioned(
@@ -89,14 +87,6 @@ class TimerPage extends HookConsumerWidget {
               child: Row(
                 children: [
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: bnw.withOpacity(0.3)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 21, vertical: 15),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                    ),
                     onPressed: () {
                       ref.watch(todoControllerProvider).toggle(todo.id);
                       context.go('/');
@@ -104,27 +94,21 @@ class TimerPage extends HookConsumerWidget {
                     },
                     child: Text(
                       "Done",
-                      style:
-                          TextStyle(fontSize: 18, color: bnw.withOpacity(0.5)),
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: themeColors.onPrimary.withOpacity(0.5)),
                     ),
                   ),
                   const SizedBox(width: 8),
                   OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      side: BorderSide(color: bnw.withOpacity(0.3)),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 21, vertical: 15),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                    ),
                     onPressed: () {
                       toggleAnimation(controller);
                     },
                     child: Text(
                       buttonText.value,
-                      style:
-                          TextStyle(fontSize: 18, color: bnw.withOpacity(0.5)),
+                      style: TextStyle(
+                          fontSize: 18,
+                          color: themeColors.onPrimary.withOpacity(0.5)),
                     ),
                   ),
                 ],

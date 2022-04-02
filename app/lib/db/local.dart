@@ -8,7 +8,7 @@ const _uuid = Uuid();
 final hiveDB = Provider<HiveDB>((_) => HiveDB());
 
 class HiveDB {
-  // TODODB
+  // TodoDB
   late final Box<Todo> todoBox;
 
   List<Todo> get allTodo => todoBox.values.toList();
@@ -41,26 +41,35 @@ class HiveDB {
     if (todoBox.values.isEmpty) {
       final Todo initialTodo = Todo()
         ..id = _uuid.v4()
-        ..description = "hello, welcome to Gaji Todo"
+        ..description = "👋 Hello, welcome to Gaji Todo"
         ..date = DateTime.now();
 
       await todoBox.put(initialTodo.id, initialTodo);
     }
   }
 
-  // THEMEDB
+  // ThemeDB
   late final Box<String> themeBox;
-
   String get savedTheme => themeBox.values.first;
-
   Future<void> initThemeBox() async {
     await Hive.openBox<String>('theme').then((value) => themeBox = value);
-
     if (themeBox.values.isEmpty) {
       themeBox.add('light');
     }
   }
 
-  Future<void> toggleSaveTheme(String mode) async =>
-      await themeBox.put(0, mode);
+  Future<void> saveTheme(String mode) async => await themeBox.put(0, mode);
+
+  // LanguageDB
+  late final Box<String> languageBox;
+  String get savedLanguage => languageBox.values.first;
+  Future<void> initLanguageBox() async {
+    await Hive.openBox<String>('language').then((value) => languageBox = value);
+    if (languageBox.values.isEmpty) {
+      languageBox.add("english");
+    }
+  }
+
+  Future<void> saveLanguage(String mode) async =>
+      await languageBox.put(0, mode);
 }

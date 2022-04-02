@@ -1,3 +1,6 @@
+import 'package:gaji/ui/pages/settingPage.dart';
+import 'package:gaji/ui/pages/settings/languagePage.dart';
+import 'package:gaji/ui/pages/settings/themePage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gaji/ui/pages/homePage.dart';
 import 'package:gaji/ui/pages/loginPage.dart';
@@ -15,6 +18,18 @@ class AppRouter {
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginPage(),
+      ),
+      GoRoute(
+        path: '/setting',
+        builder: (context, state) => const SettingPage(),
+      ),
+      GoRoute(
+        path: '/theme',
+        builder: (context, state) => const ThemePage(),
+      ),
+      GoRoute(
+        path: '/language',
+        builder: (context, state) => const LanguagePage(),
       ),
       GoRoute(
         path: '/todo',

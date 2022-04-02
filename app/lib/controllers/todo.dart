@@ -1,13 +1,18 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:gaji/db/local.dart';
 import 'package:gaji/models/todo.dart';
 import 'package:uuid/uuid.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const _uuid = Uuid();
 
+final todoControllerProvider = ChangeNotifierProvider<TodoController>((ref) {
+  final _hiveDB = ref.watch(hiveDB);
+  return TodoController(_hiveDB);
+});
+
 class TodoController with ChangeNotifier {
   TodoController(this._hiveDB);
-
   late final HiveDB _hiveDB;
 
   List<Todo> get all => _hiveDB.allTodo;

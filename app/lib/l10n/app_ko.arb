@@ -1,0 +1,16 @@
+{
+    "today" : "오늘",
+    "tomorrow" : "내일",
+    "theme" : "테마",
+    "language" : "언어",
+    "rateUs" : "평가해 주세요",
+    "done" : "완료",
+    "pause" : "정지",
+    "week" : "주",
+    "month" : "월",
+    "year" : "년",
+    "about" : "소개",
+    "settings" : "설정",
+    "reportIssue" : "문제 보고",
+    "privacyPolicy" : "프라이버시 정책"
+}

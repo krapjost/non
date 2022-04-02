@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
-import 'package:gaji/controllers/todo.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:line_icons/line_icons.dart';
-import 'package:gaji/provider/state.dart';
-import 'package:gaji/provider/color.dart';
-import 'package:gaji/provider/todo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:line_icons/line_icons.dart';
+
+import 'package:gaji/controllers/todo.dart';
+import 'package:gaji/provider/state.dart';
 
 final addTodoKey = UniqueKey();
 
@@ -15,17 +14,13 @@ class AddTodoInput extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Color bnw = ref.watch(bnwColorProvider.state).state;
-    final Color brown = ref.watch(brownPrimaryColorProvider.state).state;
-
     final StateController focusStateController =
         ref.watch(focustStateControllerProvider.state);
     final bool hasFocus = focusStateController.state;
-
     final Size size = MediaQuery.of(context).size;
-    final AnimationController rotationController = useAnimationController(
-      duration: const Duration(milliseconds: 300),
-    );
+    final ColorScheme contextColor = Theme.of(context).colorScheme;
+
+    final AnimationController rotationController = useAnimationController();
     final TextEditingController addTodoTextEditingController =
         useTextEditingController();
     final TodoController todoController = ref.watch(todoControllerProvider);
@@ -82,7 +77,7 @@ class AddTodoInput extends HookConsumerWidget {
     }
 
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.easeOutSine,
       width: hasFocus ? size.width * 0.9 : 55,
       height: hasFocus ? 120 : 55,
@@ -95,12 +90,6 @@ class AddTodoInput extends HookConsumerWidget {
                   child: Row(
                     children: [
                       ToggleButtons(
-                          selectedColor: bnw,
-                          color: brown,
-                          fillColor: bnw.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(50),
-                          borderColor: bnw.withOpacity(0.2),
-                          selectedBorderColor: bnw.withOpacity(0.2),
                           children: const [
                             Padding(
                               padding: EdgeInsets.only(left: 13.0, right: 8.0),
@@ -138,25 +127,8 @@ class AddTodoInput extends HookConsumerWidget {
             children: [
               Flexible(
                 child: TextField(
-                  cursorColor: bnw.withOpacity(0.8),
                   key: addTodoKey,
-                  textAlignVertical: TextAlignVertical.center,
                   controller: addTodoTextEditingController,
-                  style: const TextStyle(
-                    fontSize: 15,
-                  ),
-                  decoration: InputDecoration(
-                    enabledBorder: hasFocus
-                        ? OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: bnw.withOpacity(0.2)))
-                        : null,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(color: bnw.withOpacity(0.2)),
-                    ),
-                    contentPadding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  ),
                   focusNode: addTodoFocus,
                   onSubmitted: (_) {
                     addTodoItem();
@@ -164,14 +136,16 @@ class AddTodoInput extends HookConsumerWidget {
                 ),
               ),
               SizedBox(
-                width: 50,
-                height: 50,
+                width: 55,
+                height: 55,
                 child: Material(
+                  color: Colors.transparent,
                   shape: RoundedRectangleBorder(
                       side: BorderSide(
-                          color: hasFocus
-                              ? Colors.transparent
-                              : bnw.withOpacity(0.2)),
+                        color: hasFocus
+                            ? Colors.transparent
+                            : contextColor.onPrimary.withOpacity(0.3),
+                      ),
                       borderRadius: BorderRadius.circular(8)),
                   child: InkWell(
                     customBorder: RoundedRectangleBorder(

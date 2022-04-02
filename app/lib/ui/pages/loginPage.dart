@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:gaji/constants/theme/styles.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -155,7 +154,6 @@ class LoginPageState extends State<LoginPage> {
                 width: double.infinity,
                 height: 42,
                 child: ElevatedButton(
-                  style: outlinedButtonStyle,
                   onPressed: () {
                     emailLogin(emailTextController?.text,
                         passwordTextController?.text);
