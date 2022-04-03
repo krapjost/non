@@ -1,4 +1,4 @@
-package work.gaji.gaji
+package com.krap.non
 
 import io.flutter.embedding.android.FlutterActivity
 

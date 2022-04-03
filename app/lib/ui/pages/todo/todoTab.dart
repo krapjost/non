@@ -1,8 +1,8 @@
 import 'dart:ui';
-import 'package:gaji/provider/state.dart';
+import 'package:non/provider/state.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:gaji/ui/widgets/todoListWidget.dart';
+import 'package:non/ui/widgets/todoListWidget.dart';
 
 class TodoTab extends ConsumerWidget {
   const TodoTab({Key? key, required this.todoFor}) : super(key: key);

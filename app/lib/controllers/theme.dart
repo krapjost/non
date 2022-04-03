@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gaji/db/local.dart';
+import 'package:non/db/local.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:gaji/common/theme.dart';
+import 'package:non/common/theme.dart';
 
 //** THEME CONTROLLER */
 final themeController = ChangeNotifierProvider<ThemeController>(

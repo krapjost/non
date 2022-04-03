@@ -1,12 +1,10 @@
-/* import 'package:home_widget/home_widget.dart'; */
 /* import 'package:firebase_core/firebase_core.dart'; */
 import 'package:flutter/material.dart';
-import 'package:gaji/controllers/locale.dart';
-import 'package:gaji/db/local.dart';
-import 'package:gaji/i18n/strings.g.dart';
-import 'package:gaji/models/todo.dart';
-import 'package:gaji/controllers/theme.dart';
-import 'package:gaji/ui/router.dart';
+import 'package:non/db/local.dart';
+import 'package:non/i18n/strings.g.dart';
+import 'package:non/models/todo.dart';
+import 'package:non/controllers/theme.dart';
+import 'package:non/ui/router.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -38,7 +36,6 @@ Future<void> main() async {
   await _hiveDB.initTodoBox();
   await _hiveDB.initThemeBox();
   await _hiveDB.initLocaleBox();
-  /* HomeWidget.registerBackgroundCallback(backgroundCallback); */
   /* await Firebase.initializeApp(); */
 
   runApp(
@@ -47,17 +44,3 @@ Future<void> main() async {
     ], child: TranslationProvider(child: const App())),
   );
 }
-
-/* Future<void> backgroundCallback(Uri? uri) async { */
-/*   if (uri?.host == 'updatecounter') { */
-/*     int _counter = 0; */
-/*     await HomeWidget.getWidgetData<int>('_counter', defaultValue: 0) */
-/*         .then((value) { */
-/*       _counter = value!; */
-/*       _counter++; */
-/*     }); */
-/*     await HomeWidget.saveWidgetData<int>('_counter', _counter); */
-/*     await HomeWidget.updateWidget( */
-/*         name: 'AppWidgetProvider', iOSName: 'AppWidgetProvider'); */
-/*   } */
-/* } */

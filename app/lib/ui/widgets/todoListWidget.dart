@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:gaji/controllers/todo.dart';
-import 'package:gaji/models/todo.dart';
+import 'package:non/controllers/todo.dart';
+import 'package:non/models/todo.dart';
 
 class Toolbar extends ConsumerWidget {
   const Toolbar({Key? key, required this.isTodayWidget}) : super(key: key);

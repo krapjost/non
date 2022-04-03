@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gaji/i18n/strings.g.dart';
+import 'package:non/i18n/strings.g.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:gaji/models/todo.dart';
+import 'package:non/models/todo.dart';
 import 'package:uuid/uuid.dart';
 
 const _uuid = Uuid();
@@ -42,7 +42,7 @@ class HiveDB {
     if (todoBox.values.isEmpty) {
       final Todo initialTodo = Todo()
         ..id = _uuid.v4()
-        ..description = "👋 Hello, welcome to Gaji Todo"
+        ..description = "👋 Hello, welcome to non Todo"
         ..date = DateTime.now();
 
       await todoBox.put(initialTodo.id, initialTodo);

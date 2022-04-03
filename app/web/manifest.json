@@ -1,11 +1,11 @@
 {
-    "name": "gaji",
-    "short_name": "gaji",
+    "name": "non",
+    "short_name": "non",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "Todo List",
+    "description": "Task manager for remote team",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

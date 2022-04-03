@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gaji/db/local.dart';
-import 'package:gaji/models/todo.dart';
+import 'package:non/db/local.dart';
+import 'package:non/models/todo.dart';
 import 'package:uuid/uuid.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

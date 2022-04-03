@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gaji/ui/pages/historyPage.dart';
+import 'package:non/ui/pages/historyPage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
-import 'package:gaji/ui/pages/todoPage.dart';
-import 'package:gaji/ui/pages/calenderPage.dart';
-import 'package:gaji/provider/state.dart';
+import 'package:non/ui/pages/todoPage.dart';
+import 'package:non/ui/pages/calenderPage.dart';
+import 'package:non/provider/state.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);

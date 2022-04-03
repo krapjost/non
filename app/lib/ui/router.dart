@@ -1,11 +1,11 @@
-import 'package:gaji/ui/pages/settingPage.dart';
-import 'package:gaji/ui/pages/settings/languagePage.dart';
-import 'package:gaji/ui/pages/settings/themePage.dart';
+import 'package:non/ui/pages/settingPage.dart';
+import 'package:non/ui/pages/settings/languagePage.dart';
+import 'package:non/ui/pages/settings/themePage.dart';
 import 'package:go_router/go_router.dart';
-import 'package:gaji/ui/pages/homePage.dart';
-import 'package:gaji/ui/pages/loginPage.dart';
-import 'package:gaji/ui/pages/timerPage.dart';
-import 'package:gaji/ui/pages/todoPage.dart';
+import 'package:non/ui/pages/homePage.dart';
+import 'package:non/ui/pages/loginPage.dart';
+import 'package:non/ui/pages/timerPage.dart';
+import 'package:non/ui/pages/todoPage.dart';
 
 class AppRouter {
   get router => _router;

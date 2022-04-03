@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "work.gaji" "\0"
-            VALUE "FileDescription", "gaji" "\0"
+            VALUE "CompanyName", "com.krap" "\0"
+            VALUE "FileDescription", "non" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "gaji" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 work.gaji. All rights reserved." "\0"
-            VALUE "OriginalFilename", "gaji.exe" "\0"
-            VALUE "ProductName", "gaji" "\0"
+            VALUE "InternalName", "non" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2022 com.krap. All rights reserved." "\0"
+            VALUE "OriginalFilename", "non.exe" "\0"
+            VALUE "ProductName", "non" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

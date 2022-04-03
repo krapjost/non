@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gaji/db/local.dart';
+import 'package:non/db/local.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //** LOCALE CONTROLLER */

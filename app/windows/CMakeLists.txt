@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
-project(gaji LANGUAGES CXX)
+project(non LANGUAGES CXX)
 
-set(BINARY_NAME "gaji")
+set(BINARY_NAME "non")
 
 cmake_policy(SET CMP0063 NEW)
 

@@ -1,7 +1,0 @@
-<!ELEMENT FrameLayout (RelativeLayout)>
-<!ELEMENT RelativeLayout (TextView,Button)>
-<!ELEMENT TextView EMPTY>
-<!ELEMENT Button EMPTY><!ELEMENT FrameLayout (RelativeLayout)>
-<!ELEMENT RelativeLayout (TextView,Button)>
-<!ELEMENT TextView EMPTY>
-<!ELEMENT Button EMPTY>
