@@ -1,2 +1,2 @@
-# gaji
-Task Manager app using flutter
+# Non Todo
+Task Manager for remote team
