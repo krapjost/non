@@ -7,8 +7,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 const Map<String, String> localeMap = {
   "en": "English",
-  "es": "Espanol",
-  "ko": "gksrnrdj",
+  "es": "Español",
+  "ko": "한국어",
+  "ja": "日本語",
+  "zh": "中文",
 };
 
 getLocalLangName(String locale) {

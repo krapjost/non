@@ -1,8 +1,13 @@
-# X Todo
+# Non Todo
 
 Todo List
 
 ## used libraries
-**hive** as local storage
-**riverpot** for state management
-deployed on **firebase**
+
+* **hive** as local storage
+
+* **firestore** as remote storage
+
+* **riverpod** for state management
+
+* deployed on **firebase**

@@ -2,10 +2,10 @@
 /*
  * Generated file. Do not edit.
  *
- * Locales: 3
- * Strings: 45 (15.0 per locale)
+ * Locales: 5
+ * Strings: 75 (15.0 per locale)
  *
- * Built on 2022-04-02 at 20:43 UTC
+ * Built on 2022-04-03 at 07:09 UTC
  */
 
 import 'package:flutter/widgets.dart';
@@ -22,7 +22,9 @@ AppLocale _currLocale = _baseLocale;
 enum AppLocale {
 	en, // 'en' (base locale, fallback)
 	es, // 'es'
+	ja, // 'ja'
 	ko, // 'ko'
+	zh, // 'zh'
 }
 
 /// Method A: Simple
@@ -152,7 +154,9 @@ class AppLocaleUtils {
 
 late _StringsEn _translationsEn = _StringsEn.build();
 late _StringsEs _translationsEs = _StringsEs.build();
+late _StringsJa _translationsJa = _StringsJa.build();
 late _StringsKo _translationsKo = _StringsKo.build();
+late _StringsZh _translationsZh = _StringsZh.build();
 
 // extensions for AppLocale
 
@@ -165,7 +169,9 @@ extension AppLocaleExtensions on AppLocale {
 		switch (this) {
 			case AppLocale.en: return _translationsEn;
 			case AppLocale.es: return _translationsEs;
+			case AppLocale.ja: return _translationsJa;
 			case AppLocale.ko: return _translationsKo;
+			case AppLocale.zh: return _translationsZh;
 		}
 	}
 
@@ -180,7 +186,9 @@ extension AppLocaleExtensions on AppLocale {
 		switch (this) {
 			case AppLocale.en: return _StringsEn.build();
 			case AppLocale.es: return _StringsEs.build();
+			case AppLocale.ja: return _StringsJa.build();
 			case AppLocale.ko: return _StringsKo.build();
+			case AppLocale.zh: return _StringsZh.build();
 		}
 	}
 
@@ -188,7 +196,9 @@ extension AppLocaleExtensions on AppLocale {
 		switch (this) {
 			case AppLocale.en: return 'en';
 			case AppLocale.es: return 'es';
+			case AppLocale.ja: return 'ja';
 			case AppLocale.ko: return 'ko';
+			case AppLocale.zh: return 'zh';
 		}
 	}
 
@@ -196,7 +206,9 @@ extension AppLocaleExtensions on AppLocale {
 		switch (this) {
 			case AppLocale.en: return const Locale.fromSubtags(languageCode: 'en');
 			case AppLocale.es: return const Locale.fromSubtags(languageCode: 'es');
+			case AppLocale.ja: return const Locale.fromSubtags(languageCode: 'ja');
 			case AppLocale.ko: return const Locale.fromSubtags(languageCode: 'ko');
+			case AppLocale.zh: return const Locale.fromSubtags(languageCode: 'zh');
 		}
 	}
 }
@@ -206,7 +218,9 @@ extension StringAppLocaleExtensions on String {
 		switch (this) {
 			case 'en': return AppLocale.en;
 			case 'es': return AppLocale.es;
+			case 'ja': return AppLocale.ja;
 			case 'ko': return AppLocale.ko;
+			case 'zh': return AppLocale.zh;
 			default: return null;
 		}
 	}
@@ -370,6 +384,40 @@ class _StringsEs implements _StringsEn {
 }
 
 // Path: <root>
+class _StringsJa implements _StringsEn {
+
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsJa.build();
+
+	/// Access flat map
+	@override dynamic operator[](String key) => _flatMap[key];
+
+	// Internal flat map initialized lazily
+	late final Map<String, dynamic> _flatMap = _buildFlatMap();
+
+	// ignore: unused_field
+	@override late final _StringsJa _root = this;
+
+	// Translations
+	@override String get today => '今日';
+	@override String get tomorrow => '明日';
+	@override String get theme => 'テーマ';
+	@override String get language => '言語';
+	@override String get rateUs => '私たちを評価してください';
+	@override String get done => '終わり';
+	@override String get start => '始める';
+	@override String get pause => '一時停止';
+	@override String get week => '週';
+	@override String get month => '月';
+	@override String get year => '年';
+	@override String get about => '就いては';
+	@override String get settings => '設定';
+	@override String get reportIssue => 'レポートの問題';
+	@override String get privacyPolicy => 'プライバシーポリシー';
+}
+
+// Path: <root>
 class _StringsKo implements _StringsEn {
 
 	/// You can call this constructor and build your own translation instance of this locale.
@@ -401,6 +449,40 @@ class _StringsKo implements _StringsEn {
 	@override String get settings => '설정';
 	@override String get reportIssue => '문제 보고';
 	@override String get privacyPolicy => '프라이버시 정책';
+}
+
+// Path: <root>
+class _StringsZh implements _StringsEn {
+
+	/// You can call this constructor and build your own translation instance of this locale.
+	/// Constructing via the enum [AppLocale.build] is preferred.
+	_StringsZh.build();
+
+	/// Access flat map
+	@override dynamic operator[](String key) => _flatMap[key];
+
+	// Internal flat map initialized lazily
+	late final Map<String, dynamic> _flatMap = _buildFlatMap();
+
+	// ignore: unused_field
+	@override late final _StringsZh _root = this;
+
+	// Translations
+	@override String get today => '今天';
+	@override String get tomorrow => '明天';
+	@override String get theme => '主题';
+	@override String get language => '语言';
+	@override String get rateUs => '评价我们';
+	@override String get done => '完毕';
+	@override String get start => '开始';
+	@override String get pause => '暂停';
+	@override String get week => '星期';
+	@override String get month => '月';
+	@override String get year => '年';
+	@override String get about => '关于';
+	@override String get settings => '设置';
+	@override String get reportIssue => '报告问题';
+	@override String get privacyPolicy => '隐私政策';
 }
 
 /// Flat map(s) containing all translations.
@@ -450,6 +532,28 @@ extension on _StringsEs {
 	}
 }
 
+extension on _StringsJa {
+	Map<String, dynamic> _buildFlatMap() {
+		return {
+			'today': '今日',
+			'tomorrow': '明日',
+			'theme': 'テーマ',
+			'language': '言語',
+			'rateUs': '私たちを評価してください',
+			'done': '終わり',
+			'start': '始める',
+			'pause': '一時停止',
+			'week': '週',
+			'month': '月',
+			'year': '年',
+			'about': '就いては',
+			'settings': '設定',
+			'reportIssue': 'レポートの問題',
+			'privacyPolicy': 'プライバシーポリシー',
+		};
+	}
+}
+
 extension on _StringsKo {
 	Map<String, dynamic> _buildFlatMap() {
 		return {
@@ -468,6 +572,28 @@ extension on _StringsKo {
 			'settings': '설정',
 			'reportIssue': '문제 보고',
 			'privacyPolicy': '프라이버시 정책',
+		};
+	}
+}
+
+extension on _StringsZh {
+	Map<String, dynamic> _buildFlatMap() {
+		return {
+			'today': '今天',
+			'tomorrow': '明天',
+			'theme': '主题',
+			'language': '语言',
+			'rateUs': '评价我们',
+			'done': '完毕',
+			'start': '开始',
+			'pause': '暂停',
+			'week': '星期',
+			'month': '月',
+			'year': '年',
+			'about': '关于',
+			'settings': '设置',
+			'reportIssue': '报告问题',
+			'privacyPolicy': '隐私政策',
 		};
 	}
 }

@@ -39,7 +39,7 @@ class TimerPage extends HookConsumerWidget {
     void toggleAnimation(AnimationController controller) {
       if (controller.isAnimating) {
         controller.stop();
-        buttonText.value = t.reportIssue;
+        buttonText.value = t.start;
         controller.removeListener(setTime);
       } else {
         controller.addListener(setTime);
