@@ -11,7 +11,8 @@ import 'package:non/provider/state.dart';
 final addTodoKey = UniqueKey();
 
 class AddTodoInput extends HookConsumerWidget {
-  const AddTodoInput({Key? key}) : super(key: key);
+  const AddTodoInput({Key? key, required this.addTodoFor}) : super(key: key);
+  final String addTodoFor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +27,6 @@ class AddTodoInput extends HookConsumerWidget {
         useTextEditingController();
     final TodoController todoController = ref.watch(todoControllerProvider);
     final FocusNode addTodoFocus = useFocusNode();
-    final t = Translations.of(context);
 
     void setFocusState() {
       focusStateController.state = addTodoFocus.hasFocus;
@@ -56,15 +56,12 @@ class AddTodoInput extends HookConsumerWidget {
     }, [addTodoFocus]);
 
     addTodoItem() {
-      final bool isToday =
-          ref.watch(todayOrTomorrowSelectProvider.notifier).state[0];
-
       hasFocus
           ? () {
               addTodoTextEditingController.value.text.trim().isEmpty
                   ? null
                   : todoController.put(
-                      addTodoTextEditingController.value.text, isToday);
+                      addTodoTextEditingController.value.text, addTodoFor);
               FocusManager.instance.primaryFocus?.unfocus();
               addTodoTextEditingController.clear();
               focusStateController.state = false;
@@ -79,65 +76,36 @@ class AddTodoInput extends HookConsumerWidget {
     }
 
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutSine,
       width: hasFocus ? size.width * 0.9 : 55,
       height: hasFocus ? 120 : 55,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          hasFocus
-              ? Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    children: [
-                      ToggleButtons(
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.only(left: 13.0, right: 8.0),
-                              child: Text(t.today),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(left: 8.0, right: 13.0),
-                              child: Text(t.tomorrow),
-                            ),
-                          ],
-                          onPressed: (index) {
-                            final isSelected = ref
-                                .watch(todayOrTomorrowSelectProvider.notifier);
-
-                            for (int buttonIndex = 0;
-                                buttonIndex < isSelected.state.length;
-                                buttonIndex++) {
-                              if (buttonIndex == index) {
-                                isSelected.state = [false, true];
-                              } else {
-                                isSelected.state = [true, false];
-                              }
-                            }
-                          },
-                          isSelected: ref.watch(todayOrTomorrowSelectProvider)),
-                    ],
-                  ),
-                )
-              : const SizedBox(),
           Row(
             children: [
               Flexible(
-                child: TextField(
-                  key: addTodoKey,
-                  controller: addTodoTextEditingController,
-                  focusNode: addTodoFocus,
-                  onSubmitted: (_) {
-                    addTodoItem();
-                  },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: contextColor.primary.withOpacity(0.8),
+                      borderRadius: BorderRadius.circular(8)),
+                  child: TextField(
+                    key: addTodoKey,
+                    controller: addTodoTextEditingController,
+                    focusNode: addTodoFocus,
+                    onSubmitted: (_) {
+                      addTodoItem();
+                    },
+                  ),
                 ),
               ),
               SizedBox(
                 width: 55,
                 height: 55,
                 child: Material(
-                  color: Colors.transparent,
+                  elevation: hasFocus ? 0 : 1,
+                  color: hasFocus ? Colors.transparent : contextColor.primary,
                   shape: RoundedRectangleBorder(
                       side: BorderSide(
                         color: hasFocus

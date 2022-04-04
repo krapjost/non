@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
 import 'package:non/controllers/todo.dart';
 import 'package:non/models/todo.dart';
 
 class Toolbar extends ConsumerWidget {
-  const Toolbar({Key? key, required this.isTodayWidget}) : super(key: key);
-  final bool isTodayWidget;
-
+  const Toolbar({Key? key, required this.todoFor}) : super(key: key);
+  final String todoFor;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final int todoLen = ref
-        .watch(todoControllerProvider)
-        .getUncompletedForDate(isTodayWidget)
-        .length;
+    final int todoLen =
+        ref.watch(todoControllerProvider).getUncompletedFor(todoFor).length;
 
     return Material(
       child: Row(
@@ -58,78 +54,70 @@ class TodoItem extends StatelessWidget {
 class TodoListWidget extends HookConsumerWidget {
   const TodoListWidget({
     Key? key,
-    required this.isTodayWidget,
+    required this.todoFor,
   }) : super(key: key);
 
-  final bool isTodayWidget;
+  final String todoFor;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final Size size = MediaQuery.of(context).size;
     final TodoController todoController = ref.watch(todoControllerProvider);
     final ColorScheme themeColors = Theme.of(context).colorScheme;
-    final List<Todo> todos = todoController.all;
+    final List<Todo?> todos = todoController.getUncompletedFor(todoFor);
 
-    final List<Widget> todoItems = todos
-        .where((todo) {
-          final bool isTodayTodo = isTodayWidget
-              ? todo.date.day == DateTime.now().day
-              : todo.date.day ==
-                  DateTime.now().add(const Duration(days: 1)).day;
-
-          return !todo.completed && isTodayTodo;
-        })
-        .map(
-          (todo) => Dismissible(
-            resizeDuration: const Duration(milliseconds: 100),
-            key: ValueKey(todo.id),
-            onDismissed: (direction) {
-              if (isTodayWidget) {
-                if (direction == DismissDirection.startToEnd) {
-                  todoController.update(
-                    id: todo.id,
-                    description: todo.description,
-                    date: todo.date.add(const Duration(days: 1)),
-                  );
-                } else {
-                  todoController.delete(todo.id);
-                }
-              } else {
-                if (direction == DismissDirection.startToEnd) {
-                  todoController.delete(todo.id);
-                } else {
-                  todoController.update(
-                    id: todo.id,
-                    description: todo.description,
-                    date: todo.date.subtract(const Duration(days: 1)),
-                  );
-                }
-              }
-            },
-            child: TodoItem(todo: todo),
-          ),
-        )
-        .toList();
+    final List<Widget> todoItems = todos.isEmpty
+        ? [const Text("Empty")]
+        : todos
+            .map(
+              (todo) => Dismissible(
+                secondaryBackground: Container(color: Colors.red),
+                background: Container(color: Colors.blue),
+                resizeDuration: const Duration(milliseconds: 100),
+                key: ValueKey(todo!.id),
+                onDismissed: (direction) {
+                  if (todo.date.day == DateTime.now().day) {
+                    if (direction == DismissDirection.startToEnd) {
+                      todoController.update(
+                        id: todo.id,
+                        description: todo.description,
+                        date: todo.date.add(const Duration(days: 1)),
+                      );
+                    } else {
+                      todoController.delete(todo.id);
+                    }
+                  } else {
+                    if (direction == DismissDirection.startToEnd) {
+                      todoController.delete(todo.id);
+                    } else {
+                      todoController.update(
+                        id: todo.id,
+                        description: todo.description,
+                        date: todo.date.subtract(const Duration(days: 1)),
+                      );
+                    }
+                  }
+                },
+                child: TodoItem(todo: todo),
+              ),
+            )
+            .toList();
 
     return Positioned(
-      top: 0,
+      bottom: 0,
       width: size.width,
+      /* height: size.height - 200, */
       child: Column(
         children: [
-          Toolbar(isTodayWidget: isTodayWidget),
-          if (todos.isNotEmpty)
-            Divider(
-              height: 1,
-              color: themeColors.onPrimary.withOpacity(0.5),
-            ),
           Container(
-            constraints: BoxConstraints(maxHeight: size.height / 2),
-            child: SingleChildScrollView(
-              child: Column(children: [
-                ...todoItems,
-              ]),
-            ),
-          ),
+              constraints:
+                  BoxConstraints.loose(Size(size.width, size.height - 200)),
+              child: SingleChildScrollView(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Column(children: todoItems))),
+          if (todos.isNotEmpty) const Divider(),
+          /* Toolbar(todoFor: todoFor), */
+          const Divider()
         ],
       ),
     );

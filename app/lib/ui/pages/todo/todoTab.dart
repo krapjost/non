@@ -13,13 +13,12 @@ class TodoTab extends ConsumerWidget {
     final Color filterColor =
         Theme.of(context).colorScheme.onPrimary.withOpacity(0.2);
 
-    final bool isToday = todoFor == "today";
-
     return Stack(
-      alignment: Alignment.center,
+      fit: StackFit.expand,
       children: [
+        const Positioned.fill(child: SizedBox()),
         TodoListWidget(
-          isTodayWidget: isToday,
+          todoFor: todoFor,
         ),
         hasFocus
             ? BackdropFilter(

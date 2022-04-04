@@ -3,9 +3,9 @@
  * Generated file. Do not edit.
  *
  * Locales: 5
- * Strings: 75 (15.0 per locale)
+ * Strings: 80 (16.0 per locale)
  *
- * Built on 2022-04-03 at 07:09 UTC
+ * Built on 2022-04-04 at 07:04 UTC
  */
 
 import 'package:flutter/widgets.dart';
@@ -334,6 +334,7 @@ class _StringsEn {
 	// Translations
 	String get today => 'Today';
 	String get tomorrow => 'Tomorrow';
+	String get later => 'Later';
 	String get theme => 'Theme';
 	String get language => 'Language';
 	String get rateUs => 'Rate Us';
@@ -368,6 +369,7 @@ class _StringsEs implements _StringsEn {
 	// Translations
 	@override String get today => 'Hoy dia';
 	@override String get tomorrow => 'Mañana';
+	@override String get later => 'Lego';
 	@override String get theme => 'Tema';
 	@override String get language => 'Idioma';
 	@override String get rateUs => 'Nos califica';
@@ -402,6 +404,7 @@ class _StringsJa implements _StringsEn {
 	// Translations
 	@override String get today => '今日';
 	@override String get tomorrow => '明日';
+	@override String get later => '後で';
 	@override String get theme => 'テーマ';
 	@override String get language => '言語';
 	@override String get rateUs => '私たちを評価してください';
@@ -436,6 +439,7 @@ class _StringsKo implements _StringsEn {
 	// Translations
 	@override String get today => '오늘';
 	@override String get tomorrow => '내일';
+	@override String get later => '나중에';
 	@override String get theme => '테마';
 	@override String get language => '언어';
 	@override String get rateUs => '평가해 주세요';
@@ -470,6 +474,7 @@ class _StringsZh implements _StringsEn {
 	// Translations
 	@override String get today => '今天';
 	@override String get tomorrow => '明天';
+	@override String get later => '之后';
 	@override String get theme => '主题';
 	@override String get language => '语言';
 	@override String get rateUs => '评价我们';
@@ -493,6 +498,7 @@ extension on _StringsEn {
 		return {
 			'today': 'Today',
 			'tomorrow': 'Tomorrow',
+			'later': 'Later',
 			'theme': 'Theme',
 			'language': 'Language',
 			'rateUs': 'Rate Us',
@@ -515,6 +521,7 @@ extension on _StringsEs {
 		return {
 			'today': 'Hoy dia',
 			'tomorrow': 'Mañana',
+			'later': 'Lego',
 			'theme': 'Tema',
 			'language': 'Idioma',
 			'rateUs': 'Nos califica',
@@ -537,6 +544,7 @@ extension on _StringsJa {
 		return {
 			'today': '今日',
 			'tomorrow': '明日',
+			'later': '後で',
 			'theme': 'テーマ',
 			'language': '言語',
 			'rateUs': '私たちを評価してください',
@@ -559,6 +567,7 @@ extension on _StringsKo {
 		return {
 			'today': '오늘',
 			'tomorrow': '내일',
+			'later': '나중에',
 			'theme': '테마',
 			'language': '언어',
 			'rateUs': '평가해 주세요',
@@ -581,6 +590,7 @@ extension on _StringsZh {
 		return {
 			'today': '今天',
 			'tomorrow': '明天',
+			'later': '之后',
 			'theme': '主题',
 			'language': '语言',
 			'rateUs': '评价我们',

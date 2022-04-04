@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_icons/line_icons.dart';
 
 import 'package:non/ui/pages/todoPage.dart';
-import 'package:non/ui/pages/calenderPage.dart';
+import 'package:non/ui/pages/calendarPage.dart';
 import 'package:non/provider/state.dart';
 
 class HomePage extends ConsumerWidget {
@@ -17,7 +17,7 @@ class HomePage extends ConsumerWidget {
 
     final pages = [
       const TodoPage(),
-      const CalenderPage(),
+      const CalendarPage(),
       const HistoryPage(),
     ];
 

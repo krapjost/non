@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:non/db/local.dart';
 import 'package:non/models/todo.dart';
 import 'package:uuid/uuid.dart';
+import 'package:non/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+final _now = DateTime.now();
+const _day = Duration(days: 1);
 const _uuid = Uuid();
 
 final todoControllerProvider = ChangeNotifierProvider<TodoController>((ref) {
@@ -17,9 +20,16 @@ class TodoController with ChangeNotifier {
 
   List<Todo> get all => _hiveDB.allTodo;
 
-  void put(String description, bool isToday) {
-    final DateTime date =
-        isToday ? DateTime.now() : DateTime.now().add(const Duration(days: 1));
+  void put(String description, String whenTodo) {
+    DateTime date = kLater;
+    switch (whenTodo) {
+      case "today":
+        date = DateTime.now();
+        break;
+      case "tomorrow":
+        date = DateTime.now().add(const Duration(days: 1));
+        break;
+    }
     final Todo todo = Todo()
       ..id = _uuid.v4()
       ..date = date
@@ -33,15 +43,21 @@ class TodoController with ChangeNotifier {
 
   List<Todo?> getUncompleted() => _hiveDB.getUncompletedTodo();
 
-  List<Todo?> getUncompletedForDate(bool isToday) {
-    return _hiveDB.getUncompletedTodo().where((todo) {
-      if (isToday) {
-        return todo?.date.day == DateTime.now().day;
-      } else {
-        return todo?.date.day ==
-            DateTime.now().add(const Duration(days: 1)).day;
-      }
-    }).toList();
+  List<Todo?> getUncompletedFor(String whenTodo) {
+    switch (whenTodo) {
+      case "today":
+        return getUncompleted()
+            .where((todo) => todo?.date.day == _now.day)
+            .toList();
+      case "tomorrow":
+        return getUncompleted()
+            .where((todo) => todo?.date.day == _now.add(_day).day)
+            .toList();
+      default:
+        return getUncompleted()
+            .where((todo) => todo?.date.day == kLater.day)
+            .toList();
+    }
   }
 
   void toggle(String id) {

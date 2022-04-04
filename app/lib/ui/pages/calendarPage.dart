@@ -1,11 +1,14 @@
 import 'package:non/i18n/strings.g.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'calendar/weekTab.dart';
+import 'calendar/yearTab.dart';
+import 'calendar/monthTab.dart';
 
-class CalenderPage extends HookConsumerWidget {
+class CalendarPage extends HookConsumerWidget {
   final String project;
 
-  const CalenderPage({Key? key, this.project = ''}) : super(key: key);
+  const CalendarPage({Key? key, this.project = ''}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,9 +33,9 @@ class CalenderPage extends HookConsumerWidget {
         ),
         body: const TabBarView(
           children: [
-            Text("Week"),
-            Text("month"),
-            Text("year"),
+            WeekTab(),
+            MonthTab(),
+            YearTab(),
           ],
         ),
       ),
