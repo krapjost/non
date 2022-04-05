@@ -71,9 +71,9 @@ class TodoPage extends HookConsumerWidget {
         ],
       ),
       body: views[page.value],
-      floatingActionButton: AddTodoInput(addTodoFor: keys[page.value]),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.miniCenterFloat,
+      /* floatingActionButton: AddTodoInput(addTodoFor: keys[page.value]), */
+      /* floatingActionButtonLocation: */
+      /*     FloatingActionButtonLocation.miniCenterFloat, */
     );
   }
 }

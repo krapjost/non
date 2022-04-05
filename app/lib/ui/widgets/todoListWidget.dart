@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:non/controllers/todo.dart';
 import 'package:non/models/todo.dart';
+import 'package:non/ui/widgets/addTodoInputWidget.dart';
 
 class Toolbar extends ConsumerWidget {
   const Toolbar({Key? key, required this.todoFor}) : super(key: key);
@@ -37,14 +38,18 @@ class TodoItem extends StatelessWidget {
   final Todo todo;
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: 2,
-      child: ListTile(
-        onTap: () {
-          context.push('/timer/${todo.id}');
-        },
-        title: Text(
-          todo.description,
+    return Padding(
+      padding: const EdgeInsets.only(top: 2.0),
+      child: Material(
+        borderRadius: BorderRadius.circular(5),
+        elevation: 1,
+        child: ListTile(
+          onTap: () {
+            context.push('/timer/${todo.id}');
+          },
+          title: Text(
+            todo.description,
+          ),
         ),
       ),
     );
@@ -115,9 +120,10 @@ class TodoListWidget extends HookConsumerWidget {
               child: SingleChildScrollView(
                   padding: const EdgeInsets.symmetric(horizontal: 8),
                   child: Column(children: todoItems))),
-          if (todos.isNotEmpty) const Divider(),
+          /* if (todos.isNotEmpty) const Divider(), */
           /* Toolbar(todoFor: todoFor), */
-          const Divider()
+          /* const Divider(), */
+          AddTodoInput(addTodoFor: todoFor),
         ],
       ),
     );

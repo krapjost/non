@@ -20,14 +20,14 @@ class TodoTab extends ConsumerWidget {
         TodoListWidget(
           todoFor: todoFor,
         ),
-        hasFocus
-            ? BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-                child: Container(
-                  color: filterColor,
-                ),
-              )
-            : const SizedBox(),
+        /* hasFocus */
+        /*     ? BackdropFilter( */
+        /*         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0), */
+        /*         child: Container( */
+        /*           color: filterColor, */
+        /*         ), */
+        /*       ) */
+        /*     : const SizedBox(), */
       ],
     );
   }

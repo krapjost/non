@@ -9,7 +9,7 @@ class HistoryPage extends HookConsumerWidget {
     List<Widget> completedList = ref
         .watch(todoControllerProvider)
         .all
-        .where((todo) => todo.completed)
+        /* .where((todo) => todo.completed) */
         .map(
           (todo) => Container(
             alignment: Alignment.center,
@@ -23,8 +23,11 @@ class HistoryPage extends HookConsumerWidget {
           ),
         )
         .toList();
-    return Column(
-      children: completedList,
+    return Scaffold(
+      appBar: AppBar(title: const Text("history")),
+      body: ListView(
+        children: completedList,
+      ),
     );
   }
 }

@@ -76,10 +76,11 @@ class AddTodoInput extends HookConsumerWidget {
     }
 
     return AnimatedContainer(
+      padding: const EdgeInsets.all(8),
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOutSine,
-      width: hasFocus ? size.width * 0.9 : 55,
-      height: hasFocus ? 120 : 55,
+      width: hasFocus ? size.width : 80,
+      /* height: hasFocus ? 120 : 55, */
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
